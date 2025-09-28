@@ -1,0 +1,38 @@
+roles:
+  - pattern: "SAS-S"
+    slug: "access-switch"
+  - pattern: "-CR-"
+    slug: "core-router"
+  - pattern: "ER-"
+    slug: "edge-router"
+
+sites:
+  - pattern: "^(?P<site>[A-Za-z0-9]+)-"
+    slug_format: "{site}"
+    transform: "lower"
+
+manufacturers:
+  - pattern: ".*"
+    slug: "nokia"
+
+device_types:
+  - pattern: "(?i)7750"
+    slug: "nokia-7750-sr"
+
+interface_types:
+  physical_default: "other"
+  lag_default: "lag"
+  matches:
+    - pattern: "(?i)lag"
+      type: "lag"
+    - pattern: "(?i)[0-9]+/[0-9]+"
+      type: "other"
+
+device_type_suffix:
+  enabled: false
+  value: ""
+
+defaults:
+  role_slug: "access-switch"
+  site_slug: "default-site"
+  manufacturer_slug: "nokia"
