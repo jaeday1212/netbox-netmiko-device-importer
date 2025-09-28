@@ -1,6 +1,6 @@
 # Python bytecode and caches
-__pycache__
-.vscode
+__pycache__/
+.vscode/
 *.py[cod]
 *.pyo
 
