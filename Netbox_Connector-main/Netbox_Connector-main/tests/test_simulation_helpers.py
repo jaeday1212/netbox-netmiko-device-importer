@@ -1,8 +1,23 @@
 import os
+import sys
+from pathlib import Path
 
-from connector_cli import _build_fake_netbox_api, _build_sample_inventory
-from config_loader import load_app_config
-from netbox_devices_full import NetboxDeviceBuilder
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SRC_DIR = PROJECT_ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+try:
+    from netbox_connector.connector_cli import (  # type: ignore[import-not-found]
+        _build_fake_netbox_api,
+        _build_sample_inventory,
+    )
+    from netbox_connector.config_loader import load_app_config  # type: ignore[import-not-found]
+    from netbox_connector.netbox_devices_full import NetboxDeviceBuilder  # type: ignore[import-not-found]
+except ModuleNotFoundError:  # pragma: no cover - fallback for legacy layout
+    from connector_cli import _build_fake_netbox_api, _build_sample_inventory
+    from config_loader import load_app_config
+    from netbox_devices_full import NetboxDeviceBuilder
 
 
 def _with_token_env():
